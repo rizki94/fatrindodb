@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountReceivableController;
+use App\Http\Controllers\AccountReceivableDateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
@@ -117,6 +118,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('update', [AccountReceivableController::class, 'update']);
         Route::get('status_import', [AccountReceivableTempController::class, 'statusImport']);
         Route::get('list', [AccountReceivableController::class, 'list']);
+    });
+
+    Route::prefix('account_receivable_date')->group(function () {
+        Route::get('list', [AccountReceivableDateController::class, 'list']);
     });
 
     Route::get('user_profile', [UserProfileController::class, 'userProfile']);
