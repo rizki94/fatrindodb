@@ -9,9 +9,10 @@ use Illuminate\Support\Facades\Validator;
 
 class AccountReceivableController extends Controller
 {
-    public function list()
+    public function list(Request $request)
     {
-        $list = AccountReceivable::with('customer:id,name')->orderBy('status_id')->get();
+        $status = $request->completed === "true" ? 4 : 0;
+        $list = AccountReceivable::whereRaw("IF('$status' = 4, status_id = 4, status_id < 4)")->with('customer:id,name')->orderBy('status_id')->get();
         return response()->json($list);
     }
 
