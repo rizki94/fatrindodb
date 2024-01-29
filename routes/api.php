@@ -118,6 +118,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('update', [AccountReceivableController::class, 'update']);
         Route::get('status_import', [AccountReceivableTempController::class, 'statusImport']);
         Route::get('list', [AccountReceivableController::class, 'list']);
+        Route::post('batch_update', [AccountReceivableController::class, 'batchUpdate']);
     });
 
     Route::prefix('account_receivable_date')->group(function () {

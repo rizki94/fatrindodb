@@ -11,9 +11,21 @@ class AccountReceivableController extends Controller
 {
     public function list(Request $request)
     {
-        $status = $request->completed === "true" ? 4 : 0;
-        $list = AccountReceivable::whereRaw("IF('$status' = 4, status_id = 4, status_id < 4)")->with('customer:id,name')->orderBy('status_id')->get();
+        $status = $request->completed === "true" ? 100 : 0;
+        $list = AccountReceivable::whereRaw("IF('$status' = 100, status_id = 100, status_id < 100)")->with('customer:id,name,sales_id', 'customer.salesman:id,name')->orderBy('status_id')->get();
         return response()->json($list);
+    }
+
+    public function batchUpdate(Request $request)
+    {
+        $list = AccountReceivable::whereIn('id', $request->id);
+        $list->update([
+            'status_id' => $request->status
+        ]);
+        return response()->json([
+            'status' => 200,
+            'asd' => $request->id
+        ]);
     }
 
     public function update(Request $request)
